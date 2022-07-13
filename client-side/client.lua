@@ -475,25 +475,3 @@ end
 function Shooting()
 	return isShooting
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- LOOT
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		for k,v in pairs(Entitys) do
-			if DoesEntityExist(v) then
-				if IsPedDeadOrDying(v) then
-					if math.random(1000) >= 700 then
-						local lootCoords = GetEntityCoords(v)
-						local zGround = GetGroundZFor_3dCoord(lootCoords["x"],lootCoords["y"],lootCoords["z"],true)
-						TriggerServerEvent("inventory:zombieDrops",lootCoords["x"],lootCoords["y"],zGround)
-					end
-
-					table.remove(Entitys,k)
-				end
-			end
-		end
-
-		Citizen.Wait(1000)
-	end
-end)
